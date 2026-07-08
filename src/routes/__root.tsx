@@ -91,14 +91,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:description",
         content:
-          "Offline-first DevNotes, peer code review labs, daily bug challenges, snippet vault and shareable bento portfolios — built for developers and ICT students.",
+          "DevPulse is a collaboration hub for developers and ICT students: offline-first notes, peer code review labs, daily bug challenges, snippets and bento portfolios.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "DevPulse — Developer Workspace & Learning Hub" },
+      { name: "twitter:description", content: "DevPulse is a collaboration hub for developers and ICT students: offline-first notes, peer code review labs, daily bug challenges, snippets and bento portfolios." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/24849c6f-eb89-4adc-82f0-410f65cbf92d" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/24849c6f-eb89-4adc-82f0-410f65cbf92d" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
