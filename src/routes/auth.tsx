@@ -2,8 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Zap, Mail, Lock, Loader2 } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
+import { supabase } from "@/integrations/supabase/client"; // Native Supabase Client
 import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/input";
 
@@ -30,16 +29,24 @@ function AuthPage() {
     });
   }, [navigate]);
 
+  // FIX: Using direct supabase client instead of lovable wrapper
   const handleGoogle = async () => {
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
-    });
-    if (result.error) {
-      toast.error("Google sign-in failed. Please try again.");
-      return;
+    try {
+      setBusy(true);
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`, // Directs them straight to dashboard after login
+        },
+      });
+
+      if (error) throw error;
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : "Google sign-in failed.";
+      toast.error(msg);
+    } finally {
+      setBusy(false);
     }
-    if (result.redirected) return;
-    navigate({ to: "/dashboard", replace: true });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -96,8 +103,8 @@ function AuthPage() {
               : "Free forever for students & developers"}
           </p>
 
-          <Button variant="outline" className="mt-6 w-full" onClick={handleGoogle}>
-            <svg className="h-4 w-4" viewBox="0 0 24 24">
+          <Button variant="outline" className="mt-6 w-full" onClick={handleGoogle} disabled={busy}>
+            <svg className="h-4 w-4 mr-2" viewBox="0 0 24 24">
               <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z" />
               <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
               <path fill="#FBBC05" d="M5.84 14.1c-.22-.66-.35-1.36-.35-2.1s.13-1.44.35-2.1V7.06H2.18A11 11 0 0 0 1 12c0 1.77.43 3.45 1.18 4.94l3.66-2.84z" />
@@ -136,7 +143,7 @@ function AuthPage() {
               />
             </div>
             <Button className="w-full" disabled={busy}>
-              {busy && <Loader2 className="h-4 w-4 animate-spin" />}
+              {busy && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
               {mode === "signin" ? "Sign in" : "Create account"}
             </Button>
           </form>
