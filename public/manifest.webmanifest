@@ -1,0 +1,16 @@
+{
+  "name": "DevPulse — Developer Workspace & Learning Hub",
+  "short_name": "DevPulse",
+  "description": "Offline-first notes, peer code reviews, daily bug hunts and a bento portfolio for developers and ICT students.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0b0d12",
+  "theme_color": "#0b0d12",
+  "categories": ["productivity", "education", "developer"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

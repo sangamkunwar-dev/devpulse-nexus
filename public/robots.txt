@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://devpulse-nexus.lovable.app/sitemap.xml

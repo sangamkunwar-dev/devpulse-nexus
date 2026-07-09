@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { InstallButton } from "@/components/InstallButton";
 import { useSession } from "@/hooks/useSession";
 
 export const Route = createFileRoute("/")({
@@ -80,6 +81,7 @@ function Index() {
             <a href="#how" className="transition-colors hover:text-foreground">How it works</a>
           </nav>
           <div className="flex items-center gap-2">
+            <InstallButton />
             {session ? (
               <Link to="/dashboard">
                 <Button size="sm">
