@@ -81,6 +81,7 @@ function Index() {
             <a href="#how" className="transition-colors hover:text-foreground">How it works</a>
           </nav>
           <div className="flex items-center gap-2">
+            <InstallButton />
             {session ? (
               <Link to="/dashboard">
                 <Button size="sm">
