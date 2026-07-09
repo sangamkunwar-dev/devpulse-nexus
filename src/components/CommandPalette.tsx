@@ -16,6 +16,7 @@ import {
   LogOut,
   Link2,
   Search,
+  FolderKanban,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useSession, useProfile } from "@/hooks/useSession";
