@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { InstallButton } from "@/components/InstallButton";
 import { useSession } from "@/hooks/useSession";
 
 export const Route = createFileRoute("/")({
