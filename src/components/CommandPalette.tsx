@@ -111,6 +111,9 @@ export function CommandPalette() {
               <Command.Item onSelect={() => go("/snippets")}>
                 <Code2 className="h-4 w-4 text-muted-foreground" /> Snippets
               </Command.Item>
+              <Command.Item onSelect={() => go("/projects")}>
+                <FolderKanban className="h-4 w-4 text-muted-foreground" /> Projects
+              </Command.Item>
               <Command.Item onSelect={() => go("/reviews")}>
                 <GitPullRequest className="h-4 w-4 text-muted-foreground" /> Review Labs
               </Command.Item>
