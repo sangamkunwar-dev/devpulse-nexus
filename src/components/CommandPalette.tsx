@@ -16,6 +16,7 @@ import {
   LogOut,
   Link2,
   Search,
+  FolderKanban,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useSession, useProfile } from "@/hooks/useSession";
@@ -109,6 +110,9 @@ export function CommandPalette() {
               </Command.Item>
               <Command.Item onSelect={() => go("/snippets")}>
                 <Code2 className="h-4 w-4 text-muted-foreground" /> Snippets
+              </Command.Item>
+              <Command.Item onSelect={() => go("/projects")}>
+                <FolderKanban className="h-4 w-4 text-muted-foreground" /> Projects
               </Command.Item>
               <Command.Item onSelect={() => go("/reviews")}>
                 <GitPullRequest className="h-4 w-4 text-muted-foreground" /> Review Labs

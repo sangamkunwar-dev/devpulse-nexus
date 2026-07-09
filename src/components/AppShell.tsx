@@ -15,6 +15,7 @@ import {
   X,
   ExternalLink,
   Command,
+  FolderKanban,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useSession, useProfile } from "@/hooks/useSession";
@@ -25,6 +26,7 @@ const NAV = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/notes", label: "DevNotes", icon: NotebookPen },
   { to: "/snippets", label: "Snippets", icon: Code2 },
+  { to: "/projects", label: "Projects", icon: FolderKanban },
   { to: "/reviews", label: "Review Labs", icon: GitPullRequest },
   { to: "/challenges", label: "Daily Bug", icon: Bug },
   { to: "/leaderboard", label: "Leaderboard", icon: Trophy },

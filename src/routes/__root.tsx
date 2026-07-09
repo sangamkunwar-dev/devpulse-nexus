@@ -155,6 +155,8 @@ function RootComponent() {
       router.invalidate();
       if (event !== "SIGNED_OUT") queryClient.invalidateQueries();
     });
+    // Register PWA service worker (guarded — no-op in dev/preview/iframe).
+    import("@/lib/pwa-register").then((m) => m.registerPwa()).catch(() => {});
     return () => subscription.unsubscribe();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
