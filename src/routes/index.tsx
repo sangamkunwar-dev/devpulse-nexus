@@ -249,6 +249,8 @@ function Index() {
           <div className="flex items-center gap-5">
             <Link to="/learn" className="hover:text-foreground">Learn Hub</Link>
             <Link to="/auth" className="hover:text-foreground">Sign in</Link>
+            <Link to="/terms" className="hover:text-foreground">Terms</Link>
+            <Link to="/privacy" className="hover:text-foreground">Privacy</Link>
             <a
               href="https://github.com"
               target="_blank"
