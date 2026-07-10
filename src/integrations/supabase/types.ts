@@ -75,6 +75,51 @@ export type Database = {
           },
         ]
       }
+      challenge_templates: {
+        Row: {
+          answer_pattern: string
+          broken_code: string
+          created_at: string
+          difficulty: string
+          explanation: string
+          hint: string | null
+          id: string
+          language: string
+          last_used_on: string | null
+          prompt: string
+          title: string
+          xp_reward: number
+        }
+        Insert: {
+          answer_pattern: string
+          broken_code: string
+          created_at?: string
+          difficulty: string
+          explanation: string
+          hint?: string | null
+          id?: string
+          language: string
+          last_used_on?: string | null
+          prompt: string
+          title: string
+          xp_reward?: number
+        }
+        Update: {
+          answer_pattern?: string
+          broken_code?: string
+          created_at?: string
+          difficulty?: string
+          explanation?: string
+          hint?: string | null
+          id?: string
+          language?: string
+          last_used_on?: string | null
+          prompt?: string
+          title?: string
+          xp_reward?: number
+        }
+        Relationships: []
+      }
       challenges: {
         Row: {
           broken_code: string
@@ -397,18 +442,47 @@ export type Database = {
         }
         Relationships: []
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      publish_daily_challenge: { Args: never; Returns: string }
       submit_challenge_answer: {
         Args: { _answer: string; _challenge_id: string }
         Returns: Json
       }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -535,6 +609,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const

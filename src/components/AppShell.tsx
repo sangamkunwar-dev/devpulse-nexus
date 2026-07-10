@@ -1,6 +1,6 @@
 import { type ReactNode, useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { useQueryClient } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   LayoutDashboard,
   NotebookPen,
@@ -16,6 +16,7 @@ import {
   ExternalLink,
   Command,
   FolderKanban,
+  Shield,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useSession, useProfile } from "@/hooks/useSession";
@@ -33,11 +34,22 @@ const NAV = [
   { to: "/settings", label: "Settings", icon: Settings },
 ];
 
+const ADMIN_ITEM = { to: "/admin", label: "Admin", icon: Shield } as const;
+
 export function AppShell({ children, title }: { children: ReactNode; title?: string }) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { userId } = useSession();
   const { data: profile } = useProfile(userId);
+  const { data: isAdmin } = useQuery({
+    queryKey: ["is-admin", userId],
+    enabled: !!userId,
+    queryFn: async () => {
+      const { data } = await supabase.rpc("has_role", { _user_id: userId!, _role: "admin" });
+      return !!data;
+    },
+  });
+  const nav = isAdmin ? [...NAV, ADMIN_ITEM] : NAV;
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
@@ -60,7 +72,7 @@ export function AppShell({ children, title }: { children: ReactNode; title?: str
       </Link>
 
       <nav className="flex-1 space-y-0.5 px-3">
-        {NAV.map((item) => {
+        {nav.map((item) => {
           const active = pathname.startsWith(item.to);
           return (
             <Link
